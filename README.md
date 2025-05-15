@@ -1,1 +1,1 @@
-Devfinder. To run, open the backend folder to run the server, using nodemon server.js. You will be able to search for github users and save them.
+Devfinder. npm start to run
