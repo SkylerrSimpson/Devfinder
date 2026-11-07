@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=22"
+    "node": "24.x"
   },
   "scripts": {
     "start": "npm --prefix backend start",
     "build": "npm --prefix frontend run build",
-    "test": "npm --prefix backend test"
+    "test": "npm --prefix backend test",
+    "build:vercel": "node scripts/build-vercel.cjs",
+    "test:deployment": "node --test --test-isolation=none scripts/deployment.test.cjs"
   }
 }

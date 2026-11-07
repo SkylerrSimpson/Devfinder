@@ -47,7 +47,7 @@
     "json-server": "^1.0.0-beta.2"
   },
   "engines": {
-    "node": ">=22"
+    "node": "24.x"
   },
   "proxy": "http://localhost:4102"
 }
