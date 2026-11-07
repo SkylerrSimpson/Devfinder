@@ -1,46 +1,79 @@
 import styled from "styled-components";
 import { Color } from "../../../constant/Color";
-import LocationIcon from '../../../images/icon-location.png';
-import TwitterIcon from '../../../images/icon-twitter.png';
-import WebsiteIcon from '../../../images/icon-website.png';
-import CompanyIcon from '../../../images/icon-company.png';
+import LocationIcon from "../../../images/icon-location.png";
+import TwitterIcon from "../../../images/icon-twitter.png";
+import WebsiteIcon from "../../../images/icon-website.png";
+import CompanyIcon from "../../../images/icon-company.png";
 
-const Socials = ( { profile } ) => {
-
+const Socials = ({ profile }) => {
   const location = profile?.location || "Not Available";
   const twitter = profile?.twitter_username || "Not Available";
   const website = profile?.blog || "Not Available";
   const company = profile?.company || "Not Available";
 
+  let websiteHref;
+  try {
+    const url = new URL(
+      /^https?:\/\//i.test(website) ? website : `https://${website}`,
+    );
+    if (
+      ["http:", "https:"].includes(url.protocol) &&
+      !url.username &&
+      !url.password &&
+      !/^[a-z][a-z0-9+.-]*:/i.test(website.replace(/^https?:/i, ""))
+    )
+      websiteHref = url.href;
+  } catch {}
+
   return (
     <SocialsContainer>
       <HandleContainer>
         <Location>
-          <StyledImage src={LocationIcon} alt="Location Icon"/>
-          {location === "Not Available" ? <NotAvailable>{location}</NotAvailable> : <Available>{location}</Available>}
+          <StyledImage src={LocationIcon} alt="Location Icon" />
+          {location === "Not Available" ? (
+            <NotAvailable>{location}</NotAvailable>
+          ) : (
+            <Available>{location}</Available>
+          )}
         </Location>
         <Website>
-          <StyledImage src={WebsiteIcon} alt="Website Icon"/>
-          {website === "Not Available" ? <NotAvailable>{website}</NotAvailable> : <AvailableLink href={website} target="_blank">{website}</AvailableLink>}
-
+          <StyledImage src={WebsiteIcon} alt="Website Icon" />
+          {!websiteHref || website === "Not Available" ? (
+            <NotAvailable>{website}</NotAvailable>
+          ) : (
+            <AvailableLink
+              href={websiteHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {website}
+            </AvailableLink>
+          )}
         </Website>
-     
       </HandleContainer>
       <HandleContainer>
         <Twitter>
-          <StyledImage src={TwitterIcon} alt="Twitter Icon"/>
-          {twitter === "Not Available" ? <NotAvailable>{twitter}</NotAvailable> : <Available>{twitter}</Available>}
-
+          <StyledImage src={TwitterIcon} alt="Twitter Icon" />
+          {twitter === "Not Available" ? (
+            <NotAvailable>{twitter}</NotAvailable>
+          ) : (
+            <Available>{twitter}</Available>
+          )}
         </Twitter>
         <Company>
-          <StyledImage src={CompanyIcon} alt="Company Icon"/>
-          {company === "Not Available" ? <NotAvailable style={{paddingBottom: '4rem'}}>{company}</NotAvailable>: <Available  style={{paddingBottom: '4rem'}}>{company}</Available>}
-
+          <StyledImage src={CompanyIcon} alt="Company Icon" />
+          {company === "Not Available" ? (
+            <NotAvailable style={{ paddingBottom: "4rem" }}>
+              {company}
+            </NotAvailable>
+          ) : (
+            <Available style={{ paddingBottom: "4rem" }}>{company}</Available>
+          )}
         </Company>
       </HandleContainer>
     </SocialsContainer>
   );
-}
+};
 
 const SocialsContainer = styled.div`
   display: flex;
@@ -56,13 +89,11 @@ const SocialsContainer = styled.div`
     padding-top: 1rem;
     flex-direction: column;
     gap: 0;
-    
   }
 `;
 
 const NotAvailable = styled.span`
   color: lightgray;
-
 `;
 
 const Available = styled.span`
@@ -93,21 +124,14 @@ const HandleContainer = styled.div`
     gap: 1rem;
     padding-bottom: 2rem;
   }
-
 `;
 
-const Location = styled.div`
-`;
+const Location = styled.div``;
 
-const Twitter = styled.div`
+const Twitter = styled.div``;
 
-`;
+const Website = styled.div``;
 
-const Website = styled.div`
-
-`;
-
-const Company = styled.div`
-`;
+const Company = styled.div``;
 
 export default Socials;

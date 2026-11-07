@@ -1,1 +1,8 @@
 node_modules/
+# Maintained original private configuration and generated outputs
+.env
+.env.*
+!.env.example
+**/node_modules/
+**/build/
+.npm-cache/

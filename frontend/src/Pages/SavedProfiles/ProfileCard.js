@@ -6,8 +6,6 @@ import { PiXCircleLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const ProfileCard = ({ profile }) => {
-
-  
   const { removeProfile } = useProfileContext();
 
   const handleDelete = async () => {
@@ -21,16 +19,31 @@ const ProfileCard = ({ profile }) => {
   return (
     <Card>
       <ProfileInfo>
-        <div style={{height: '50%', padding: '1rem 1rem 1rem 1.8rem'}}>
-        <img src={profile.avatar_url} alt="profile" style={{borderRadius: '50%', height: '100%'}} />
+        <div style={{ height: "50%", padding: "1rem 1rem 1rem 1.8rem" }}>
+          <img
+            src={profile.avatar_url}
+            alt="profile"
+            style={{ borderRadius: "50%", height: "100%" }}
+          />
         </div>
-          <Handle style={{color: Color.tertiaryText}}>@{profile.login}</Handle>
-          <ViewOrDelete>
-            <Link to={`/?profile=${profile.login}`} style={{textDecoration: 'none', color: Color.secondaryText}}>
-              <MdOutlineRemoveRedEye size={30} />
-            </Link>
-            <PiXCircleLight size={30} onClick={handleDelete} style={{cursor:'pointer', color: Color.secondaryText}}/>
-          </ViewOrDelete>
+        <Handle style={{ color: Color.tertiaryText }}>@{profile.login}</Handle>
+        <ViewOrDelete>
+          <Link
+            aria-label={`View ${profile.login}`}
+            to={`/?profile=${encodeURIComponent(profile.login)}`}
+            style={{ textDecoration: "none", color: Color.secondaryText }}
+          >
+            <MdOutlineRemoveRedEye size={30} />
+          </Link>
+          <button
+            type="button"
+            className="icon-button"
+            aria-label={`Remove ${profile.login}`}
+            onClick={handleDelete}
+          >
+            <PiXCircleLight size={30} color={Color.secondaryText} />
+          </button>
+        </ViewOrDelete>
       </ProfileInfo>
     </Card>
   );

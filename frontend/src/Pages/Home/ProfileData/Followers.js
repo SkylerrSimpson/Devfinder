@@ -1,45 +1,32 @@
 import styled from "styled-components";
 import { Color } from "../../../constant/Color";
 
-const Followers = ( { profile } ) => {
-
-  const public_repos = profile?.public_repos || "Unknown Repos";
-  const followers = profile?.followers || "Unknown Followers";
-  const following = profile?.following || "Unknown Following";
+const Followers = ({ profile }) => {
+  const public_repos = profile?.public_repos ?? "Unknown Repos";
+  const followers = profile?.followers ?? "Unknown Followers";
+  const following = profile?.following ?? "Unknown Following";
 
   return (
     <FollowersContainer>
       <TextBox>
-              <Repos>
-                <StaticTextDiv>
-                  Repos
-                </StaticTextDiv>
-                <div >
-                <FollowersHeader>
-                  {public_repos}
-                </FollowersHeader>
-                </div>
-            </Repos>
-              <FollowerAmount>
-                <StaticTextDiv>
-                  Followers
-                </StaticTextDiv>
-                <div >
-                <FollowersHeader>
-                  {followers}
-                </FollowersHeader>
-                </div>
-              </FollowerAmount>
-              <FollowingAmount>
-                <StaticTextDiv>
-                  Following
-                </StaticTextDiv>
-                <div >
-                <FollowersHeader>
-                  {following}
-                </FollowersHeader>
-                </div>
-              </FollowingAmount>
+        <Repos>
+          <StaticTextDiv>Repos</StaticTextDiv>
+          <div>
+            <FollowersHeader>{public_repos}</FollowersHeader>
+          </div>
+        </Repos>
+        <FollowerAmount>
+          <StaticTextDiv>Followers</StaticTextDiv>
+          <div>
+            <FollowersHeader>{followers}</FollowersHeader>
+          </div>
+        </FollowerAmount>
+        <FollowingAmount>
+          <StaticTextDiv>Following</StaticTextDiv>
+          <div>
+            <FollowersHeader>{following}</FollowersHeader>
+          </div>
+        </FollowingAmount>
       </TextBox>
     </FollowersContainer>
   );
@@ -54,7 +41,7 @@ const FollowersContainer = styled.div`
   background-color: ${Color.primaryBackground};
   padding-top: 1rem;
   padding-left: 1rem;
-  
+
   @media (max-width: 1051px) {
     width: 100%;
     align-items: center;
@@ -108,12 +95,10 @@ const Repos = styled.div`
 
 const FollowerAmount = styled.div`
   color: ${Color.secondaryText};
-
 `;
 
 const FollowingAmount = styled.div`
   color: ${Color.secondaryText};
 `;
-
 
 export default Followers;

@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { Color } from "../../../constant/Color";
 
-const Joined = ( { joinedDate } ) => {
+const Joined = ({ joinedDate }) => {
   return (
     <JoinedContainer>
-      <p style={{color: 'lightgray'}}>{joinedDate}</p>
+      <p style={{ color: "lightgray" }}>{joinedDate}</p>
     </JoinedContainer>
   );
 };

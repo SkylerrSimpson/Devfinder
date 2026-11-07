@@ -1,7 +1,7 @@
 import SearchBar from "./Searchbar";
 import ProfileArea from "./ProfileArea";
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 // import useProfileContext from "../../hook/useProfileContext";
@@ -15,16 +15,18 @@ const Home = () => {
   // console.log(profiles);
   // console.log(addProfile);
 
-  const profileWord = searchParams.get('profile') || 'octocat';
+  const profileWord = searchParams.get("profile") || "octocat";
 
   const searchProfiles = async (searchValue) => {
     try {
-      const response = await axios.get(`https://api.github.com/users/${searchValue}`);
+      const response = await axios.get(
+        `https://api.github.com/users/${encodeURIComponent(searchValue)}`,
+      );
       const data = response.data;
       setProfile(data);
       return data; // Return the data for potential further use
     } catch (error) {
-      console.error('Error fetching profiles: ', error);
+      console.error("Error fetching profiles: ", error);
       return null; // Handle error case
     }
   };
@@ -39,7 +41,7 @@ const Home = () => {
 
   return (
     <StyledDiv>
-      <SearchBar 
+      <SearchBar
         searchProfiles={searchProfiles}
         setProfile={setProfile}
         initialValue={profileWord}
@@ -53,16 +55,15 @@ const StyledDiv = styled.div`
   width: 100%;
   margin-right: 4rem;
   margin-left: 4rem;
-  min-height: 100vh;  /* Ensures it covers the full viewport height */
+  min-height: 100vh; /* Ensures it covers the full viewport height */
   flex-grow: 1; /* Makes sure it stretches to fill available space */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
+
   @media (max-width: 1051px) {
     margin-right: 0.2rem;
     margin-left: 0.2rem;
-    
   }
 `;
 
